@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Your Invitation Code</title>
+
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Video Background */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Transparent Input Box */
+        #inputContainer {
+            position: absolute;
+            top: 41.5%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            background: rgba(0, 0, 0, 0);
+            border: 1.5px solid black;
+            border-radius: 6px;
+        }
+
+        /* Modern Font for "Enter Code" */
+        input {
+            padding: 6px;
+            font-size: 18px;
+            width: 180px;
+            text-align: center;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: white;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif; /* Updated Modern Font */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .enter-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .enter-button:hover {
+            transform: scale(1.1);
+        }
+
+        .enter-button svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        /* Invitation Page - Fixed Full-Frame Background */
+        #imageContainer {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 30px;
+            background: url('https://raw.githubusercontent.com/RayZel-bop/Invitation-Website/main/Invitation%20Background.jpeg');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: black;
+            text-align: center;
+            border: 1.5px solid black;
+            border-radius: 10px;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        img {
+            width: 90%;
+            max-width: 600px;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Back to Home Button */
+        .back-button {
+            display: none;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease-in-out;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .back-button:hover {
+            background: darkgray;
+        }
+
+        /* Adjustments for Mobile */
+        @media (max-width: 600px) {
+            input {
+                width: 150px;
+            }
+
+            .enter-button svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            img {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video Background -->
+    <div class="video-container" id="videoContainer">
+        <video id="backgroundVideo" autoplay muted playsinline onended="freezeVideo()">
+            <source src="https://raw.githubusercontent.com/RayZel-bop/Invitation-Website/main/wisuda-video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Code Input Box -->
+    <div id="inputContainer">
+        <input type="text" id="inviteCode" placeholder="Enter Code">
+        <button class="enter-button" onclick="checkCode()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M3 12l8-8v6h8v4h-8v6z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Invitation Page -->
+    <div id="imageContainer">
+        <div class="image-wrapper">
+            <img id="image1" src="" alt="Invitation Image 1">
+        </div>
+        <div class="image-wrapper">
+            <img id="image2" src="" alt="Invitation Image 2">
+        </div>
+        <button class="back-button" onclick="goBack()">Back to Home</button>
+    </div>
+
+    <script>
+        document.getElementById("inviteCode").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkCode();
+            }
+        });
+
+        function checkCode() {
+            const codes = {
+                "9A26312": [
+                    "https://raw.githubusercontent.com/RayZel-bop/Invitation-Website/main/WhatsApp%20Image%202025-03-01%20at%2016.15.07.jpeg",
+                    "https://raw.githubusercontent.com/RayZel-bop/Invitation-Website/main/WhatsApp%20Image%202025-03-01%20at%2016.15.07%20(1).jpeg"
+                ],
+                "9I26374": [
+                    "https://raw.githubusercontent.com/RayZel-bop/Invitation-Website/main/WhatsApp%20Image%202025-03-01%20at%2016.15.32.jpeg",
+                    "https://raw.githubusercontent.com/RayZel-bop/Invitation-Website/main/WhatsApp%20Image%202025-03-01%20at%2016.15.32%20(1).jpeg"
+                ]
+            };
+
+            const userCode = document.getElementById("inviteCode").value;
+            if (codes[userCode]) {
+                document.getElementById("image1").src = codes[userCode][0];
+                document.getElementById("image2").src = codes[userCode][1];
+
+                localStorage.setItem("stayOnInvitation", "true");
+                localStorage.setItem("image1", codes[userCode][0]);
+                localStorage.setItem("image2", codes[userCode][1]);
+
+                document.getElementById("inputContainer").style.display = "none";
+                document.getElementById("imageContainer").style.display = "block";
+                document.querySelector(".back-button").style.display = "block";
+            } else {
+                alert("Invalid Code. Try Again.");
+            }
+        }
+
+        function goBack() {
+            localStorage.clear();
+            location.reload();
+        }
+    </script>
+
+</body>
+</html>
